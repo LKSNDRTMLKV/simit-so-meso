@@ -9,6 +9,21 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    // Add a remote pattern for the cloudflare-ipfs.com domain
+    remotePatterns: [
+      {
+        hostname: 'cloudflare-ipfs.com',
+        protocol: 'https',
+        pathname: '/ipfs/**',
+      },
+      {
+        hostname: 'i.pinimg.com',
+        protocol: 'https',
+        pathname: '/**',
+      }
+    ],
+  },
 
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
