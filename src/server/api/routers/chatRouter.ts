@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { observable } from "@trpc/server/observable";
 
 export const chatRouter = createTRPCRouter({
   hello: publicProcedure
@@ -136,10 +137,10 @@ export const chatRouter = createTRPCRouter({
               },
             });
 
-            // ctx.ee.emit("sendMessage", {
-            //   conversationId: conversation.id,
-            //   userId,
-            // });
+            ctx.ee.emit("sendMessage", {
+              conversationId: conversation.id,
+              userId,
+            });
 
             return conversation;
           });
@@ -186,25 +187,25 @@ export const chatRouter = createTRPCRouter({
           },
         });
 
-        // ctx.ee.emit("sendMessage", { conversationId, userId: user!.userId });
+        ctx.ee.emit("sendMessage", { conversationId, userId: user!.userId });
       }
     ),
 
-  //   onSendMessage: protectedProcedure.subscription(({ ctx }) => {
-  //     return observable<{ conversationId: string }>((emit) => {
-  //       const onSendMessage = (data: {
-  //         conversationId: string;
-  //         userId: string;
-  //       }) => {
-  //         if (data.userId === ctx.session.user.id) {
-  //           emit.next({ conversationId: data.conversationId });
-  //         }
-  //       };
-  //       ctx.ee.on("sendMessage", onSendMessage);
-
-  //       return () => {
-  //         ctx.ee.off("sendMessage", onSendMessage);
-  //       };
-  //     });
-  //   }),
+    onSendMessage: protectedProcedure.subscription(({ ctx }) => {
+      return observable<{ conversationId: string }>((emit) => {
+        const onSendMessage = (data: {
+          conversationId: string;
+          userId: string;
+        }) => {
+          if (data.userId === ctx.session.user.id) {
+            emit.next({ conversationId: data.conversationId });
+          }
+        };
+        ctx.ee.on("sendMessage", onSendMessage);
+  
+        return () => {
+          ctx.ee.off("sendMessage", onSendMessage);
+        };
+      });
+    }),
 });

@@ -7,17 +7,19 @@ import Conversations from './Conversations';
 
 export interface ChatState {
     conversationId: string | null,
-    recepient: User | null,
+    recepient: Partial<User> | null,
     setConversationId?: Dispatch<SetStateAction<string | null>>,
-    setRecepient?: Dispatch<SetStateAction<User | null>>,
+    setRecepient?: Dispatch<SetStateAction<User | null >>,
 }
 
-export interface User  {
+interface UserState {
     id: string,
     username: string,
     image: string,
     name: string,
 }
+
+export type User = Partial<UserState> | null
 
 // interface Props {
 //     showChat: boolean,
@@ -31,16 +33,19 @@ const Chat = () => {
     const [showConversations, setShowConversations] = useState<boolean>(false);
     const [conversationQueue, setConversationQueue] = useState<{ conversationId: string, recepient: User }[]>([])
     const [showChat, setShowChat] = useState<boolean>(false);
-    
+
     const handleShowChat = () => {
         setShowChat(chat => !chat);
     }
-    
-    
+
+
 
     const handleShowConversation = () => setShowConversations(!showConversations)
 
-    const handleSelectConversation = (conversationId: string, recepient: User | null) => {
+    const handleSelectConversation = (
+        conversationId: string,
+        recepient: User | null
+    ) => {
         setConversationId(conversationId)
         setRecepient(recepient)
         setShowConversations(false)
@@ -66,11 +71,11 @@ const Chat = () => {
     }
 
     // useEffect(() => {
-        
+
     // },[conversationQueue])
 
     return (
-        <div>
+        <div className='z-50'>
             {/* {!conversationId ?
                 <Conversations selectConversation={handleSelectConversation} /> :
                 <Messages
@@ -81,8 +86,8 @@ const Chat = () => {
                 />
             } */}
             <IconButton onClick={handleShowConversation} shouldFill={showConversations}>
-                    <IoChatboxOutline />
-                </IconButton>
+                <IoChatboxOutline />
+            </IconButton>
 
             {showConversations ?
                 <Conversations handleSelectConversation={handleSelectConversation} /> :
@@ -104,8 +109,8 @@ const Chat = () => {
                 <ul className="fixed bottom-4 right-4 leading-[0] space-y-4">
                     {conversationQueue.map(convo => (
                         <li key={convo.conversationId}>
-                            <button onClick={() => handleSelectConversation( convo.conversationId, convo.recepient )}>
-                                <Avatar src={convo.recepient.image} />
+                            <button onClick={() => handleSelectConversation(convo.conversationId, convo.recepient)}>
+                                <Avatar src={convo.recepient?.image || ""} />
                             </button>
                         </li>
                     ))}

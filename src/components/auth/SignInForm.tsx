@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React from 'react'
 import { type InputLabels } from '~/interfaces/InputLabels'
 import Avatar from '../common/Avatar'
@@ -23,7 +22,7 @@ const SignInForm = ({ name, username, image, handleChange, handleSubmit }: Input
                     type='text'
                     name='name'
                     id='name'
-                    value={name ?? ''}
+                    value={name ?? ""}
                     onChange={handleChange}
                     className='w-full px-3 py-2 text-neutral-900 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent'
                 />
@@ -36,7 +35,7 @@ const SignInForm = ({ name, username, image, handleChange, handleSubmit }: Input
                     type='text'
                     name='username'
                     id='username'
-                    value={username ?? ''}
+                    value={username ?? ""}
                     onChange={handleChange}
                     className='w-full px-3 py-2 text-neutral-900 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent'
                 />
@@ -50,7 +49,7 @@ const SignInForm = ({ name, username, image, handleChange, handleSubmit }: Input
                     type='text'
                     name='image'
                     id='image'
-                    value={image}
+                    value={image ?? ""}
                     onChange={handleChange}
                     className='w-full px-3 py-2 text-neutral-900 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent'
                 />

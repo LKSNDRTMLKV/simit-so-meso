@@ -6,6 +6,7 @@ import SignInForm from "~/components/auth/SignInForm";
 import Navbar from "~/components/layout/Navbar/Navbar";
 import useSearchUser from "~/hooks/useSearchUser";
 import { api } from "~/utils/api";
+// import Random from '~/components/common/Random';
 
 
 const Home: NextPage = () => {
@@ -20,6 +21,44 @@ const Home: NextPage = () => {
     image: "",
   })
 
+  // let randomNumbers = []
+
+  // for(let i = 0; i < 100; i++) {
+  //   randomNumbers.push(Math.floor(Math.random() * 1000))
+  // }
+
+  // const randomNumbers:number[] = localStorage.getItem("randomNumber")
+  // function longestSubArray(arr) {
+  //   let max = []
+  //   let cur = []
+   
+  //   for(let i = 0; i < randomNumbers.length; i++) {
+  //     if(arr[i] > arr[i-1]) {
+  //       cur.push(arr[i])
+  //     }
+  //     else {
+  //       if(cur.length > max.length) {
+  //         max = cur
+  //       }
+  //       cur = [arr[i]]
+  //     }
+  //   }
+  //   // if(cur.length > max.length) {
+  //   //   max = cur
+  //   // }
+  //   return max
+  // }
+
+  // console.log(randomNumbers)
+  // console.log(longestSubArray(randomNumbers))
+  // const randomNumbers:number[] = [];
+
+// for (let i = 0; i < 20; i++) {
+//   randomNumbers.push(Math.floor(Math.random() * 100));
+// }
+// localStorage.setItem("randomNumbers", randomNumbers)
+
+
   // const setValueCallback = useUpdateUserValues(sessionData?.user, setValues)
 
   const changeUserData = api.user.changeUserData.useMutation();
@@ -27,9 +66,9 @@ const Home: NextPage = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     changeUserData.mutate({
-      name: name || undefined,
-      username: username || undefined,
-      image: image || undefined || null,
+      name: (name || undefined) ?? "",
+      username: (username || undefined) ?? "",
+      image: (image || undefined) ?? "",
     });
   }
 
@@ -79,12 +118,10 @@ const Home: NextPage = () => {
           <h1 className="text-3xl font-bold">Welcome to Simit so Meso!</h1>
           <SignInForm name={name!} username={username!} image={sessionData?.user?.image} handleChange={handleChange} handleSubmit={handleSubmit} />
         </div>
-        
-          <p>
-            <span className='my-10 text-white'>
-            {sessionData?.user?.name}
-            </span>
-        </p>
+{/* 
+        <div className='relative'>
+          <Random />
+        </div> */}
        
       </main>
 

@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes expand-square {
+  from {
+    width: 1px;
+    height: 1px;
+  }
+  to {
+    width: 1000px;
+    height: 1000px;
+  }
+}
+
+@keyframes contract-square {
+  from {
+    width: 1000px;
+    height: 1000px;
+  }
+  to {
+    width: 1px;
+    height: 1px;
+  }
+}
+
+.animate-expand-square {
+  animation-name: expand-square;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+.animate-contract-square {
+  animation-name: contract-square;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
 
 :root {
     --background: #f7f7f7;
@@ -17,6 +51,15 @@
     --quaternaryText: #595959;
     --invertedPrimaryText: #ffffff;
     --invertedTertiaryText: #b3b3b3;
+    --size-14: 0.875rem;
+    --size-16: 1rem;
+    --size-18: 1.125rem;
+    --size-20: 1.25rem;
+    --size-24: 1.5rem;
+    --size-28: 1.75rem;
+    --size-32: 2rem;
+    --size-36: 2.25rem;
+    --size-40: 2.5rem;
   }
   
   [data-theme="dark"] {
